@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AccountContext } from "../../context/AccountContext";
 import {
   ListItem,
   NoListItem,
@@ -7,9 +8,9 @@ import {
   StyleText,
 } from "./PayList.styled";
 
-const PayList = ({ datas, selectedMonth }) => {
+const PayList = () => {
   const navigate = useNavigate();
-
+  const { datas, selectedMonth } = useContext(AccountContext);
   const handleUpdatePost = (data) => {
     navigate(`/update/${data.id}`, {
       state: {
@@ -22,17 +23,12 @@ const PayList = ({ datas, selectedMonth }) => {
     });
   };
 
-  // const allData = [...datas];
-  // // console.log(allData);
-
   const filteredData = datas.filter((data) => {
     const dataMonth = data.date.split("-")[1];
     const zeroSelectedMonth =
       selectedMonth < 10 ? `0${selectedMonth}` : selectedMonth;
     return dataMonth === zeroSelectedMonth;
   });
-
-  // console.log(filteredData);
 
   return (
     <PayListComponent>
@@ -51,20 +47,6 @@ const PayList = ({ datas, selectedMonth }) => {
       )}
     </PayListComponent>
   );
-};
-
-PayList.propTypes = {
-  datas: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      // id: PropTypes.number,
-      date: PropTypes.string,
-      item: PropTypes.string,
-      content: PropTypes.string,
-      expense: PropTypes.string,
-    })
-  ).isRequired,
-  selectedMonth: PropTypes.string,
 };
 
 export default PayList;

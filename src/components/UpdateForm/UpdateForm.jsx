@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AccountContext } from "../../context/AccountContext";
 import {
   BackButton,
   DeleteButton,
@@ -9,7 +9,9 @@ import {
   UpdateInput,
 } from "./UpdateForm.styled";
 
-const UpdateForm = ({ datas, setDatas }) => {
+const UpdateForm = () => {
+  const { datas, setDatas } = useContext(AccountContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const userInfo = { ...location.state };
@@ -108,11 +110,6 @@ const UpdateForm = ({ datas, setDatas }) => {
       </UpdateComponent>
     </div>
   );
-};
-
-UpdateForm.propTypes = {
-  datas: PropTypes.array,
-  setDatas: PropTypes.func,
 };
 
 export default UpdateForm;

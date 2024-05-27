@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { AccountContext } from "../../context/AccountContext";
 import {
   InformButton,
   InformComponent,
@@ -7,18 +8,20 @@ import {
   LabelComponent,
 } from "./AddDataForm.styled";
 
-const AddDataForm = ({
-  datas,
-  setDatas,
-  date,
-  setDate,
-  item,
-  setItem,
-  expense,
-  setExpense,
-  content,
-  setContent,
-}) => {
+const AddDataForm = () => {
+  const {
+    datas,
+    setDatas,
+    date,
+    setDate,
+    item,
+    setItem,
+    expense,
+    setExpense,
+    content,
+    setContent,
+  } = useContext(AccountContext);
+
   const handleAdd = (newSpendings) => {
     setDatas([...datas, newSpendings]);
     setDate("");
@@ -88,16 +91,4 @@ const AddDataForm = ({
   );
 };
 
-AddDataForm.propTypes = {
-  datas: PropTypes.array,
-  setDatas: PropTypes.func,
-  date: PropTypes.string,
-  setDate: PropTypes.func,
-  item: PropTypes.string,
-  setItem: PropTypes.func,
-  expense: PropTypes.string,
-  setExpense: PropTypes.func,
-  content: PropTypes.string,
-  setContent: PropTypes.func,
-};
 export default AddDataForm;

@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import { AccountContext } from "./context/AccountContext";
 import Home from "./pages/Home";
 import Update from "./pages/Update";
 
@@ -11,6 +11,7 @@ function App() {
   const [item, setItem] = useState("");
   const [expense, setExpense] = useState("");
   const [content, setContent] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("1");
   const [datas, setDatas] = useState([
     {
       id: uuidv4(),
@@ -41,78 +42,33 @@ function App() {
       content: "전기 및 수도 요금을 지불",
     },
   ]);
-  // console.log(setDatas);
-  // console.log(typeof expense);
+
   return (
-    <>
+    <AccountContext.Provider
+      value={{
+        date,
+        setDate,
+        item,
+        setItem,
+        expense,
+        setExpense,
+        content,
+        setContent,
+        datas,
+        setDatas,
+        selectedMonth,
+        setSelectedMonth,
+      }}
+    >
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                datas={datas}
-                setDatas={setDatas}
-                date={date}
-                setDate={setDate}
-                item={item}
-                setItem={setItem}
-                expense={expense}
-                setExpense={setExpense}
-                content={content}
-                setContent={setContent}
-              />
-            }
-          />
-          <Route
-            path="/update"
-            element={
-              <Update
-                datas={datas}
-                setDatas={setDatas}
-                date={date}
-                setDate={setDate}
-                item={item}
-                setItem={setItem}
-                expense={expense}
-                setExpense={setExpense}
-                content={content}
-                setContent={setContent}
-              />
-            }
-          />
-          <Route
-            path="/update/:id"
-            element={
-              <Update
-                datas={datas}
-                setDatas={setDatas}
-                date={date}
-                setDate={setDate}
-                item={item}
-                setItem={setItem}
-                expense={expense}
-                setExpense={setExpense}
-                content={content}
-                setContent={setContent}
-              />
-            }
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/update" element={<Update />} />
+          <Route path="/update/:id" element={<Update />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </AccountContext.Provider>
   );
 }
-App.propTypes = {
-  datas: PropTypes.array,
-  setDatas: PropTypes.func,
-  date: PropTypes.string,
-  setDate: PropTypes.func,
-  item: PropTypes.string,
-  setItem: PropTypes.func,
-  expense: PropTypes.string,
-  setExpense: PropTypes.func,
-  content: PropTypes.string,
-  setContent: PropTypes.func,
-};
+
 export default App;

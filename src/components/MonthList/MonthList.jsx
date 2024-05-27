@@ -1,9 +1,12 @@
-import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AccountContext } from "../../context/AccountContext";
 import { MonthButton, MonthComponent } from "./MonthList.styled";
 
 const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
 
-const MonthList = ({ selectedMonth, setSelectedMonth }) => {
+const MonthList = () => {
+  const { selectedMonth, setSelectedMonth } = useContext(AccountContext);
+
   const handleChangeMonth = (month) => {
     setSelectedMonth(month);
   };
@@ -23,11 +26,6 @@ const MonthList = ({ selectedMonth, setSelectedMonth }) => {
       </div>
     </MonthComponent>
   );
-};
-
-MonthList.propTypes = {
-  selectedMonth: PropTypes.string,
-  setSelectedMonth: PropTypes.func,
 };
 
 export default MonthList;
