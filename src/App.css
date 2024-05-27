@@ -1,0 +1,8 @@
+body {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0px auto;
+  background-color: #1a1d1f;
+}
