@@ -20,9 +20,8 @@ export const MonthButton = styled.button`
   justify-content: center;
   align-items: center;
   border: 1px solid black;
-  color: black;
-  background: #f6f7fa;
   /* 활성화된 상태일 때의 스타일 */
+  color: ${(props) => (props.$isActive ? "white" : "black")};
   background: ${(props) => (props.$isActive ? "#e8344e" : "#f6f7fa")};
   border: 0;
   cursor: pointer;

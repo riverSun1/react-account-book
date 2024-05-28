@@ -1,6 +1,5 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AccountContext } from "../../context/AccountContext";
 import {
   ListItem,
   NoListItem,
@@ -10,7 +9,9 @@ import {
 
 const PayList = () => {
   const navigate = useNavigate();
-  const { datas, selectedMonth } = useContext(AccountContext);
+  const datas = useSelector((state) => state.account.datas);
+  const selectedMonth = useSelector((state) => state.account.selectedMonth);
+
   const handleUpdatePost = (data) => {
     navigate(`/update/${data.id}`, {
       state: {

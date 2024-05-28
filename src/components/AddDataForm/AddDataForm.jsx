@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { AccountContext } from "../../context/AccountContext";
+import { addAccount } from "../../slices/accountSlice";
 import {
   InformButton,
   InformComponent,
@@ -9,34 +10,26 @@ import {
 } from "./AddDataForm.styled";
 
 const AddDataForm = () => {
-  const {
-    datas,
-    setDatas,
-    date,
-    setDate,
-    item,
-    setItem,
-    expense,
-    setExpense,
-    content,
-    setContent,
-  } = useContext(AccountContext);
+  const dispatch = useDispatch();
+  const [date, setDate] = useState(`2024-01-01`);
+  const [item, setItem] = useState("");
+  const [expense, setExpense] = useState("");
+  const [content, setContent] = useState("");
 
-  const handleAdd = (newSpendings) => {
-    setDatas([...datas, newSpendings]);
+  const handleSubmit = () => {
+    dispatch(
+      addAccount({
+        id: uuidv4(),
+        date: date,
+        item: item,
+        expense: expense,
+        content: content,
+      })
+    );
     setDate("");
     setItem("");
     setExpense("");
     setContent("");
-  };
-  const handleSubmit = () => {
-    handleAdd({
-      date: date,
-      item: item,
-      expense: expense,
-      content: content,
-      id: uuidv4(),
-    });
   };
 
   return (

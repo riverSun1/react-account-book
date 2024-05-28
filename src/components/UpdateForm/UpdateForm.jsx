@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AccountContext } from "../../context/AccountContext";
+import { deleteAccount, updateAccount } from "../../slices/accountSlice";
 import {
   BackButton,
   DeleteButton,
@@ -10,11 +11,11 @@ import {
 } from "./UpdateForm.styled";
 
 const UpdateForm = () => {
-  const { datas, setDatas } = useContext(AccountContext);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const userInfo = { ...location.state };
+
   const [loDate, setLoDate] = useState(userInfo.date);
   const [loItem, setLoItem] = useState(userInfo.item);
   const [loExpense, setLoExpense] = useState(userInfo.expense);
@@ -25,47 +26,20 @@ const UpdateForm = () => {
   };
 
   const handleDelete = () => {
-    // datas 배열에서 삭제하려는 데이터의 인덱스를 찾습니다.
-    const index = datas.findIndex((data) => data.id === userInfo.id);
-
-    if (index !== -1) {
-      // 데이터가 존재하면 해당 데이터를 배열에서 제거합니다.
-      const newDatas = datas.filter((data) => data.id !== userInfo.id);
-      // 상태를 업데이트합니다.
-      setDatas(newDatas);
-      // 삭제가 완료되면 사용자를 이전 페이지로 이동시킵니다.
-      navigate(-1);
-    } else {
-      // 데이터를 찾을 수 없는 경우의 처리
-      console.error("삭제할 데이터를 찾을 수 없습니다.");
-    }
+    dispatch(deleteAccount(userInfo.id));
+    navigate(-1);
   };
 
-  const handleSubmit = () => {
-    // 기존 datas 배열에서 수정하려는 데이터의 인덱스를 찾습니다.
-    const index = datas.findIndex((data) => data.id === userInfo.id);
-    // console.log(userInfo.id);
-    // console.log(datas);
-    if (index !== -1) {
-      // 새로운 데이터 객체를 생성합니다.
-      const newData = {
-        ...datas[index],
-        date: loDate,
-        item: loItem,
-        expense: loExpense,
-        content: loContent,
-      };
-      // 기존 배열을 복사하고 해당 인덱스의 데이터를 업데이트합니다.
-      const newDatas = [...datas];
-      newDatas[index] = newData;
-      // 상위 컴포넌트의 상태를 업데이트합니다.
-      setDatas(newDatas);
-      // 수정이 완료되면 사용자를 이전 페이지로 이동시킵니다.
-      navigate(-1);
-    } else {
-      // 데이터를 찾을 수 없는 경우의 처리
-      console.error("수정할 데이터를 찾을 수 없습니다.");
-    }
+  const handleUpdate = () => {
+    const updatedData = {
+      id: userInfo.id,
+      date: loDate,
+      item: loItem,
+      expense: loExpense,
+      content: loContent,
+    };
+    dispatch(updateAccount(updatedData));
+    navigate(-1);
   };
   return (
     <div>
@@ -98,7 +72,7 @@ const UpdateForm = () => {
           value={loContent}
           onChange={(e) => setLoContent(e.target.value)}
         />
-        <UpdateButton type="button" onClick={handleSubmit}>
+        <UpdateButton type="button" onClick={handleUpdate}>
           수정
         </UpdateButton>
         <DeleteButton type="button" onClick={handleDelete}>

@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
-import { AccountContext } from "../../context/AccountContext";
 import { GraphComponent } from "./Graph.styled";
 
 const COLOR = ["#3d6aff", "#24c459", "#fff458", "#e8344e"];
 
 const Graph = () => {
-  const { selectedMonth, datas } = useContext(AccountContext);
+  const datas = useSelector((state) => state.account.datas);
+  const selectedMonth = useSelector((state) => state.account.selectedMonth);
+
   const filteredData = datas.filter((data) => {
     const dataMonth = data.date.split("-")[1];
     const zeroSelectedMonth =
