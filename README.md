@@ -27,7 +27,7 @@
   (npm i uuid) or (yarn add uuid)
   <br><br>
 
-### 🔮 Props Drilling → Context API → Redux-RTK
+### 🔮 Props Drilling → Context API → Redux-RTK 단계별 리팩토링
 
 - 현재 저장소에는 `props-drilling`, `context`, `redux-rtk` 라는 이름의 각각의 브랜치명이 존재합니다.
 - `props-drilling` 브랜치에서는 context나 redux 없이 useState만으로 상태관리해서 코드를 작성합니다.
@@ -43,6 +43,11 @@
 👉 https://sun1-account-book.netlify.app/
 <br>
 
-<img src="" width="700"/>
+◽ 메인페이지
 <br>
-<img src="" width="700"/>
+<img src="https://github.com/riverSun1/react-account-book/assets/67379144/a662ddfb-eddf-4389-84d1-26a5b2bdbd0a" width="700" style="border: 1px solid white"/>
+<br>
+
+◽ 수정페이지
+<br>
+<img src="https://github.com/riverSun1/react-account-book/assets/67379144/a105b890-008b-408c-ae05-54d8b1f2b900" width="700" style="border: 1px solid white"/>
