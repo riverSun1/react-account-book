@@ -6,28 +6,28 @@ const initialState = {
   datas: [
     {
       id: uuidv4(),
-      date: "2023-01-04",
+      date: "2024-01-04",
       item: "식비",
       expense: "12000",
       content: "지역 시장에서 식료품 구매",
     },
     {
       id: uuidv4(),
-      date: "2023-01-14",
+      date: "2024-01-14",
       item: "미용",
       expense: "20000",
       content: "미용실",
     },
     {
       id: uuidv4(),
-      date: "2023-02-02",
+      date: "2024-02-02",
       item: "여행",
       expense: "100000",
       content: "제주도 여행",
     },
     {
       id: uuidv4(),
-      date: "2023-03-02",
+      date: "2024-03-02",
       item: "공과금",
       expense: "30000",
       content: "전기 및 수도 요금을 지불",
