@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addAccount } from "../../slices/accountSlice";
+import { addAccount } from "../../redux/slices/accountSlice";
 import {
   InformButton,
   InformComponent,
@@ -17,6 +17,19 @@ const AddDataForm = () => {
   const [content, setContent] = useState("");
 
   const handleSubmit = () => {
+    // 날짜 유효성 검사
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(date)) {
+      alert("날짜를 YYYY-MM-DD 형식으로 입력해주세요.");
+      return;
+    }
+    // 항목, 금액 유효성 검사
+    const parsedAmount = parseInt(expense, 10);
+    if (!item || parsedAmount <= 0) {
+      alert("유효한 항목과 금액을 입력해주세요.");
+      return;
+    }
+
     dispatch(
       addAccount({
         id: uuidv4(),
